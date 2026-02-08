@@ -2,9 +2,8 @@ spring:
   application:
     name: outlay-eh-service
   profiles:
-    active: dev
+    active: local
 
-  # Shared settings (apply to all profiles)
   jpa:
     hibernate:
       ddl-auto: none   # disable schema auto-update in prod
@@ -49,37 +48,3 @@ cache:
 
 main:
   allow-circular-references: true
-
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-  datasource:
-    url: jdbc:sqlserver://localhost;databaseName=outlay-eh-service-db;encrypt=false;trustServerCertificate=true
-    username: outlayeh_user
-    password: password!
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-  jpa:
-    hibernate:
-      ddl-auto: update   # auto-create tables locally if missing
-  sql:
-    init:
-      mode: never        # disable schema.sql, rely on Hibernate/Liquibase
-
----
-spring:
-  config:
-    activate:
-      on-profile: prod
-  datasource:
-    url: jdbc:sqlserver://<your-azure-sql-server>.database.windows.net:1433;databaseName=outlay-eh-service-db
-    username: ${AZURE_SQL_USERNAME}
-    password: ${AZURE_SQL_PASSWORD}
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-  jpa:
-    hibernate:
-      ddl-auto: none     # rely only on Liquibase in prod
-  sql:
-    init:
-      mode: never        # disable schema.sql in prod

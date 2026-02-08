@@ -20,16 +20,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(name="Name",nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, unique = true, length = 150)
+    @Column(name ="Email",nullable = false , unique = true, length = 150)
     private String email;
 
-    @Column(name = "created_on", nullable = false)
+    @Column(name = "CreatedOn", nullable = false)
     private LocalDateTime createdOn;
 
-    @Column(name = "updated_on")
+    @Column(name = "UpdatedOn")
     private LocalDateTime updatedOn;
 }
 
