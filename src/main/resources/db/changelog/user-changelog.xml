@@ -1,0 +1,22 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create-users-table" author="sagar">
+        <createTable tableName="users" schemaName="outlayeh">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="NVARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="NVARCHAR(150)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="created_on" type="DATETIME2"/>
+            <column name="updated_on" type="DATETIME2"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
