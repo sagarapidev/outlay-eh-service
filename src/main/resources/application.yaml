@@ -2,7 +2,7 @@ spring:
   application:
     name: outlay-eh-service
   profiles:
-    active: local
+    active: dev
 
   jpa:
     hibernate:
@@ -12,7 +12,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
-        default_schema: outlayeh
+        default_schema: {{DB_SCHEMA:dbo}}
         jdbc:
           batch_size: 20
           order_inserts: true

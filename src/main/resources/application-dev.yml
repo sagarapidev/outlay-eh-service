@@ -4,7 +4,7 @@ spring:
       on-profile: dev
 
   datasource:
-    url: jdbc:sqlserver://{{DB_DEV_HOST}};databaseName={{DB_DEV_NAME}};encrypt=false;trustServerCertificate=true
+    url: jdbc:sqlserver://${DB_DEV_HOST}:1433;databaseName=${DB_DEV_NAME};encrypt=false;trustServerCertificate=true
     username: ${DB_DEV_USER}
     password: ${DB_DEV_PASS}
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
