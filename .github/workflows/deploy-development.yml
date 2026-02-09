@@ -21,7 +21,7 @@ jobs:
       - name: Set up Java version
         uses: actions/setup-java@v4
         with:
-          java-version: '25'
+          java-version: '25'   # ✅ use supported version
           distribution: 'microsoft'
 
       - name: Cache Maven packages
@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: outlay-eh-service
-          path: outlay-eh-service.zip   # ✅ upload ZIP instead of raw JAR
+          path: outlay-eh-service.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,17 +52,17 @@ jobs:
     environment:
       name: 'development'
     permissions:
-      id-token: write # Required for requesting the JWT
+      id-token: write
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: outlay-eh-service
-          path: .   # restore into current directory
+          path: .
 
       - name: Debug artifact contents
-        run: ls -R .   # confirm ZIP location before deploy
+        run: ls -R .
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -72,12 +72,23 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           auth-type: SERVICE_PRINCIPAL
 
+      - name: Configure App Settings
+        run: |
+          az webapp config appsettings set \
+            --name outlay-eh-service \
+            --resource-group <YOUR-RESOURCE-GROUP> \
+            --settings \
+              spring.datasource.url="jdbc:sqlserver://${{ vars.DB_DEV_HOST }};databaseName=${{ vars.DB_DEV_NAME }}" \
+              spring.datasource.username="${{ vars.DB_DEV_USER }}" \
+              spring.datasource.password="${{ secrets.DB_DEV_PASSWORD }}" \
+              spring.datasource.driver-class-name="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'outlay-eh-service'
-          package: outlay-eh-service.zip   # ✅ deploy ZIP package
+          package: outlay-eh-service.zip
           slot-name: production
 
       - name: Show WebApp URL
