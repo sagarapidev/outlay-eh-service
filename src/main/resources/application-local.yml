@@ -6,5 +6,5 @@ spring:
   datasource:
     url: jdbc:sqlserver://${DB_LOCAL_HOST:localhost}:1433;databaseName=${DB_LOCAL_NAME:outlay-eh-service-db};encrypt=false;trustServerCertificate=true
     username: ${DB_LOCAL_USER:outlayeh_user}
-    password: ${DB_LOCAL_PASS:password!}
+    password: ${DB_DEV_PASSWORD:password!}
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
