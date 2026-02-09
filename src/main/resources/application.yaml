@@ -2,7 +2,7 @@ spring:
   application:
     name: outlay-eh-service
   profiles:
-    active: dev
+    active: development
 
   jpa:
     hibernate:
