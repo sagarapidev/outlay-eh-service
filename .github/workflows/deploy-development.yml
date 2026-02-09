@@ -74,14 +74,7 @@ jobs:
 
       - name: Configure App Settings
         run: |
-          az webapp config appsettings set \
-            --name outlay-eh-service \
-            --resource-group <YOUR-RESOURCE-GROUP> \
-            --settings \
-              spring.datasource.url="jdbc:sqlserver://${{ vars.DB_DEV_HOST }};databaseName=${{ vars.DB_DEV_NAME }}" \
-              spring.datasource.username="${{ vars.DB_DEV_USER }}" \
-              spring.datasource.password="${{ secrets.DB_DEV_PASSWORD }}" \
-              spring.datasource.driver-class-name="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+          az webapp config appsettings set --name outlay-eh-service --resource-group sgr-e2e-reg --settings spring.datasource.url="jdbc:sqlserver://${{ vars.DB_DEV_HOST }};databaseName=${{ vars.DB_DEV_NAME }}" spring.datasource.username="${{ vars.DB_DEV_USER }}" spring.datasource.password="${{ secrets.DB_DEV_PASSWORD }}" spring.datasource.driver-class-name="com.microsoft.sqlserver.jdbc.SQLServerDriver"
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
