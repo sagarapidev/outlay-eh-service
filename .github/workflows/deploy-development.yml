@@ -78,7 +78,7 @@ jobs:
         with:
           app-name: 'outlay-eh-service'
           package: outlay-eh-service.zip   # ✅ deploy ZIP package
-          slot-name: production
+          #slot-name: production
 
       - name: Show WebApp URL
         run: echo "App deployed at ${{ steps.deploy-to-webapp.outputs.webapp-url }}"
