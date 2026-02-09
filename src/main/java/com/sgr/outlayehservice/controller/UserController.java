@@ -19,4 +19,9 @@ public class UserController {
     public OutlayEhServiceResponse<UserDto> createUser(@RequestBody UserDto dto) {
         return userService.createUser(dto);
     }
+
+    @GetMapping("/{id}")
+    public OutlayEhServiceResponse<UserDto> getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
 }

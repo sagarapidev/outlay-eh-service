@@ -109,11 +109,8 @@ public class UserServiceImpl implements UserService {
 
     private UserDto toDto(User user) {
         return UserDto.builder()
-                .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
-                .createdOn(user.getCreatedOn().toString())
-                .updatedOn(user.getUpdatedOn() != null ? user.getUpdatedOn().toString() : null)
                 .build();
     }
 }
