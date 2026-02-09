@@ -16,7 +16,7 @@ az ad sp create-for-rbac \
 {
   "appId": "b29b649b-e167-4b2f-a642-ac0d9cc412cd",   # AZURE_CLIENT_ID
   "displayName": "github-deploy-sp",
-  "password": "Gi08Q~GdX3wmdl_RZbzSSDaF2zyZFng_s35T2bk1", # AZURE_CLIENT_SECRET
+  "password": <password>, # AZURE_CLIENT_SECRET
   "tenant": "f3f67193-3f5a-4b1e-ba8a-f4b397127a9f"   # AZURE_TENANT_ID
 }
 
@@ -44,8 +44,8 @@ az role assignment list \
   --output table
 
 ## 5. GitHub Repository Secrets
-- AZURE_CLIENT_ID: b29b649b-e167-4b2f-a642-ac0d9cc412cd
-- AZURE_CLIENT_SECRET: Gi08Q~GdX3wmdl_RZbzSSDaF2zyZFng_s35T2bk1
+- AZURE_CLIENT_ID: b29b649b-e167-4b2f-a642-xxxx
+- AZURE_CLIENT_SECRET: <AZURE_CLIENT_SECRET>
 - AZURE_TENANT_ID: f3f67193-3f5a-4b1e-ba8a-f4b397127a9f
 - AZURE_SUBSCRIPTION_ID: <SUBSCRIPTION_ID>
 - AZURE_RESOURCE_GROUP: <RESOURCE_GROUP>
