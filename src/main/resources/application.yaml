@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: outlay-eh-service
+  profiles:
+    active: development
+
+  jpa:
+    hibernate:
+      ddl-auto: none   # disable schema auto-update in prod
+    show-sql: true
+    database-platform: org.hibernate.dialect.SQLServerDialect
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: {{DB_SCHEMA:dbo}}
+        jdbc:
+          batch_size: 20
+          order_inserts: true
+          order_updates: true
+    open-in-view: false
+
+  hikari:
+    minimum-idle: 5
+    maximum-pool-size: 20
+    idle-timeout: 600000
+    connection-timeout: 30000
+    max-lifetime: 1800000
+    auto-commit: false
+    pool-name: HikariPool-USR
+    leak-detection-threshold: 60000
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    enabled: true
+
+logging:
+  level:
+    root: INFO
+    org.springframework: INFO
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: DEBUG
+    com.zaxxer.hikari: DEBUG
+
+cache:
+  type: caffeine
+
+main:
+  allow-circular-references: true
