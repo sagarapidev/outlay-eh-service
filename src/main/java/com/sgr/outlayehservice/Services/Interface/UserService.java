@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserService {
     OutlayEhServiceResponse<UserDto> createUser(UserDto dto);
-    OutlayEhServiceResponse<UserDto> updateUser(Long id, UserDto dto);
+    OutlayEhServiceResponse<UserDto> updateUser(UserDto dto);
     OutlayEhServiceResponse<UserDto> getUserById(Long id);
     OutlayEhServiceResponse<List<UserDto>> getAllUsers();
     OutlayEhServiceResponse<Void> deleteUser(Long id);

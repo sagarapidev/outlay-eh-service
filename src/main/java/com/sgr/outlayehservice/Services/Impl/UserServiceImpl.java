@@ -34,6 +34,7 @@ public class UserServiceImpl implements UserService {
                 .name(dto.getName())
                 .email(dto.getEmail())
                 .createdOn(LocalDateTime.now())
+                .updatedOn(LocalDateTime.now())
                 .build();
 
         User saved = userRepository.save(user);
@@ -45,13 +46,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public OutlayEhServiceResponse<UserDto> updateUser(Long id, UserDto dto) {
-        return userRepository.findById(id)
+    public OutlayEhServiceResponse<UserDto> updateUser(UserDto dto) {
+        return userRepository.findByEmail(dto.getEmail())
                 .map(user -> {
                     user.setName(dto.getName());
                     user.setEmail(dto.getEmail());
                     user.setUpdatedOn(LocalDateTime.now());
+
                     User updated = userRepository.save(user);
+
                     return OutlayEhServiceResponse.<UserDto>builder()
                             .status("SUCCESS")
                             .message("User updated successfully")
@@ -63,7 +66,6 @@ public class UserServiceImpl implements UserService {
                         .message("User not found")
                         .build());
     }
-
     @Override
     public OutlayEhServiceResponse<UserDto> getUserById(Long id) {
         return userRepository.findById(id)

@@ -48,3 +48,8 @@ cache:
 
 main:
   allow-circular-references: true
+
+EVENTHUB_CONFIG: ${EVENTHUB_CONFIG_DEV}
+  
+server:
+  port: 9000
