@@ -21,7 +21,7 @@ jobs:
       - name: Set up Java version
         uses: actions/setup-java@v4
         with:
-          java-version: '21'   # ✅ use supported version (App Service supports 17/21)
+          java-version: '25'   # ✅ use supported version (App Service supports 17/21)
           distribution: 'microsoft'
 
       - name: Cache Maven packages
