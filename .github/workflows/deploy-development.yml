@@ -86,3 +86,4 @@ jobs:
       - name: Health check
         run: |
           curl -sSf ${{ steps.deploy-to-webapp.outputs.webapp-url }} || echo "Health check failed"
+          
