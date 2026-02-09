@@ -33,13 +33,18 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build with Maven (includes tests)
-        run: mvn clean package   # ✅ produces target/outlay-eh-service-0.0.1-SNAPSHOT.jar
+        run: mvn clean package   # produces target/outlay-eh-service-0.0.1-SNAPSHOT.jar
+
+      - name: Prepare deployment package (zip the JAR)
+        run: |
+          cd target
+          zip ../outlay-eh-service.zip *.jar
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: outlay-eh-service
-          path: target/*.jar     # ✅ upload JARs from target
+          path: outlay-eh-service.zip   # ✅ upload ZIP instead of raw JAR
 
   deploy:
     runs-on: ubuntu-latest
@@ -54,10 +59,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: outlay-eh-service
-          path: .   # ✅ restore into current directory
+          path: .   # restore into current directory
 
       - name: Debug artifact contents
-        run: ls -R .   # ✅ confirm JAR location before deploy
+        run: ls -R .   # confirm ZIP location before deploy
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -72,7 +77,8 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'outlay-eh-service'
-          package: '*.jar'   # ✅ matches downloaded JARs
+          package: outlay-eh-service.zip   # ✅ deploy ZIP package
+          slot-name: production
 
       - name: Show WebApp URL
         run: echo "App deployed at ${{ steps.deploy-to-webapp.outputs.webapp-url }}"
